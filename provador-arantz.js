@@ -969,7 +969,9 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
         openBtn.innerHTML = stampImageHTML;
 
 
-        const imgContainers = ['.product-images', '.product-image-section', '.product-photo', '.gallery-main', '.product-gallery__main', '.product-gallery', '.product-gallery img', '.product-image img', '.product-image-column', '.product-image-main', '[data-component="product.gallery"]', '[data-component="product-images"]', '.swiper-container .swiper-slide-active', '.swiper-slide-active', '.js-product-slide', '.js-swiper-product', '[data-store^="product-image-"]', '.product__media-wrapper', '.product-gallery__media', '.product__media', '.product-media-container', '[data-media-id]', '.product__media-item', '.product-single__media', '.media-gallery'];
+        // Arantz (tema Stiletto): a 1ª foto da galeria fica em .product__media-container; o carrossel
+        // "Você também vai gostar" também usa .swiper-slide-active e roubava o selo.
+        const imgContainers = ['.product__media-container .product__media-item', '.product-images', '.product-image-section', '.product-photo', '.gallery-main', '.product-gallery__main', '.product-gallery', '.product-gallery img', '.product-image img', '.product-image-column', '.product-image-main', '[data-component="product.gallery"]', '[data-component="product-images"]', '.swiper-container .swiper-slide-active', '.swiper-slide-active', '.js-product-slide', '.js-swiper-product', '[data-store^="product-image-"]', '.product__media-wrapper', '.product-gallery__media', '.product__media', '.product-media-container', '[data-media-id]', '.product__media-item', '.product-single__media', '.media-gallery'];
 
         // O selo pertence à foto: acompanha a imagem, nunca flutua sobre a página.
         document.body.appendChild(openBtn);
@@ -980,6 +982,7 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
             for (const sel of imgContainers) {
                 const els = document.querySelectorAll(sel);
                 for (const el of els) {
+                    if (el.closest('.recommended-products, [class*="recommended"], [class*="related"], .complementary-products')) continue;
                     const rect = el.getBoundingClientRect();
                     const visible = rect.width > 50 && rect.height > 50 && window.getComputedStyle(el).visibility !== 'hidden' && window.getComputedStyle(el).display !== 'none';
                     if (!visible) continue;
