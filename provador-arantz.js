@@ -984,7 +984,7 @@ setInterval(function(){var el=document.getElementById('q-step-error');if(!el)ret
                 for (const el of els) {
                     if (el.closest('.recommended-products, [class*="recommended"], [class*="related"], .complementary-products')) continue;
                     const rect = el.getBoundingClientRect();
-                    const visible = rect.width > 50 && rect.height > 50 && window.getComputedStyle(el).visibility !== 'hidden' && window.getComputedStyle(el).display !== 'none';
+                    const visible = rect.width > 50 && rect.height > 50 && rect.right > 10 && rect.left < window.innerWidth - 10 && window.getComputedStyle(el).visibility !== 'hidden' && window.getComputedStyle(el).display !== 'none';  // no celular o carrossel deixa slides fora da tela
                     if (!visible) continue;
                     const img = el.tagName === 'IMG' ? el : el.querySelector('img');
                     if (img) return el;
